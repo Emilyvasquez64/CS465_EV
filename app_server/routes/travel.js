@@ -1,7 +1,7 @@
 // routes/travel.js
 var express = require('express');
 var router  = express.Router();
-var travelController = require('../app_server/controllers/travelController');
+var travelController = require('../controllers/travelController');
 
 // GET /travel — list all trips, supports ?category=beaches|cruises|mountains
 router.get('/',    travelController.list);

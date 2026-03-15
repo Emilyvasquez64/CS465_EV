@@ -1,32 +1,32 @@
 var createError = require('http-errors');
 var express = require('express');
-var path = require('path');
+var __path__ = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var hbs = require('hbs');
-var fs  = require('fs');
+var __fs__  = require('fs');
 
-var indexRouter      = require('./routes/index');
-var usersRouter      = require('./routes/users');
-var travelRouter     = require('./routes/travel');
-var newsRouter       = require('./routes/news');
-var loginRouter      = require('./routes/login');
-var signupRouter     = require('./routes/signup');
-var adminRouter        = require('./routes/admin');
-var reservationsRouter = require('./routes/reservations');
-var checkoutRouter     = require('./routes/checkout');
+var indexRouter        = require('./app_server/routes/index');
+var usersRouter        = require('./app_server/routes/users');
+var travelRouter       = require('./app_server/routes/travel');
+var newsRouter         = require('./app_server/routes/news');
+var loginRouter        = require('./app_server/routes/login');
+var signupRouter       = require('./app_server/routes/signup');
+var adminRouter        = require('./app_server/routes/admin');
+var reservationsRouter = require('./app_server/routes/reservations');
+var checkoutRouter     = require('./app_server/routes/checkout');
 
 var app = express();
 
 // ─── View Engine Setup (Handlebars) ──────────────────────────────────────────
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', __path__.join(__dirname, 'app_server/views'));
 app.set('view engine', 'hbs');
 
 // Register partials SYNCHRONOUSLY so they are ready on first request
-var partialsDir = path.join(__dirname, 'views/partials');
-fs.readdirSync(partialsDir).forEach(function(file) {
+var partialsDir = __path__.join(__dirname, 'app_server/views/partials');
+__fs__.readdirSync(partialsDir).forEach(function(file) {
   var name    = file.replace('.hbs', '');
-  var content = fs.readFileSync(path.join(partialsDir, file), 'utf8');
+  var content = __fs__.readFileSync(__path__.join(partialsDir, file), 'utf8');
   hbs.registerPartial(name, content);
 });
 
@@ -35,7 +35,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__path__.join(__dirname, 'public')));
 
 // ─── Routes ──────────────────────────────────────────────────────────────────
 app.use('/',             indexRouter);
