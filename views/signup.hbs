@@ -1,0 +1,55 @@
+<style>
+  #signup-wrapper { width: 960px; margin: 80px auto 0; padding: 0 47px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
+  #signup-wrapper h1 { color: #316e66; font: 30px/36px "Times New Roman", Times, serif; text-transform: uppercase; margin: 0 0 24px 0; width: 620px; }
+  #signup-box { border: 1px solid #5a4535; padding: 36px 40px; width: 620px; box-sizing: border-box; background: #fff; }
+  .signup-field { display: flex; align-items: center; margin-bottom: 20px; }
+  .signup-field label { width: 160px; text-align: right; padding-right: 16px; font-size: 15px; color: #5a4535; font-weight: bold; }
+  .signup-field input[type="text"],
+  .signup-field input[type="email"] { width: 340px; height: 32px; border: 1px solid #5a4535; border-radius: 2px; padding: 0 8px; font-size: 14px; }
+  .signup-field input[type="password"] { width: 220px; height: 32px; border: 1px solid #5a4535; border-radius: 2px; padding: 0 8px; font-size: 14px; }
+  .signup-agree { display: flex; align-items: center; margin-left: 160px; margin-bottom: 20px; font-size: 14px; color: #5a4535; }
+  .signup-agree input { margin-right: 8px; }
+  .signup-agree a { color: #2c9688; text-decoration: none; }
+  .signup-actions { display: flex; align-items: center; margin-left: 160px; gap: 20px; }
+  .btn-signup { padding: 8px 28px; border: 1px solid #5a4535; background: #fff; font-size: 15px; cursor: pointer; color: #5a4535; font-weight: bold; }
+  .btn-signup:hover { background: #f5f0e8; }
+  .form-link { color: #2c9688; font-size: 14px; text-decoration: none; }
+  .form-link:hover { text-decoration: underline; }
+  .error-msg { color: red; margin-left: 160px; margin-bottom: 12px; font-size: 14px; }
+</style>
+
+<div id="signup-wrapper">
+  <h1>Sign Up</h1>
+  <div id="signup-box">
+    {{#if error}}
+      <p class="error-msg">{{error}}</p>
+    {{/if}}
+    <form action="/signup" method="POST">
+      <div class="signup-field">
+        <label for="name">* Name:</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="signup-field">
+        <label for="email">* Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="signup-field">
+        <label for="password">* Password:</label>
+        <input type="password" id="password" name="password" required>
+        <span style="margin-left:10px;cursor:pointer;color:#5a4535" title="Min 8 characters, include a number and symbol.">&#9432;</span>
+      </div>
+      <div class="signup-field">
+        <label for="repassword">* Re-type password:</label>
+        <input type="password" id="repassword" name="repassword" required>
+      </div>
+      <div class="signup-agree">
+        <input type="checkbox" id="agree" name="agree">
+        <label for="agree">I agree to the <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.</label>
+      </div>
+      <div class="signup-actions">
+        <button type="submit" class="btn-signup">Sign up</button>
+        <a href="#" class="form-link">Learn more</a>
+      </div>
+    </form>
+  </div>
+</div>

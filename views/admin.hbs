@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>{{title}}</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, Helvetica, sans-serif; background: #f0f0f0; }
+    #topbar { background: #1a72d9; height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+    #topbar a#topbar-logo { background: #fff; border: 2px solid #ccc; width: 110px; height: 60px; display: flex; align-items: center; justify-content: center; padding: 4px; text-decoration: none; }
+    #topbar a#topbar-logo img { max-height: 52px; max-width: 100px; }
+    #topbar-icons { display: flex; gap: 6px; }
+    .topbar-icon { width: 46px; height: 46px; border: 2px solid rgba(255,255,255,0.6); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.8); font-size: 22px; cursor: pointer; }
+    #admin-layout { display: flex; min-height: calc(100vh - 80px); }
+    #sidebar { background: #1a72d9; width: 200px; flex-shrink: 0; padding: 30px 20px; }
+    #sidebar ul { list-style: none; }
+    #sidebar ul li { margin-bottom: 18px; }
+    #sidebar ul li a { color: #fff; text-decoration: underline; font-size: 16px; font-weight: bold; }
+    #admin-main { flex: 1; background: #fff; padding: 40px 50px; }
+    fieldset { border: 2px solid #333; padding: 30px 40px 40px; max-width: 780px; }
+    legend { font-size: 15px; font-weight: bold; color: #333; padding: 0 8px; }
+    .form-row { display: flex; align-items: center; margin-bottom: 22px; }
+    .form-row label { width: 160px; text-align: right; padding-right: 18px; font-size: 15px; color: #333; font-weight: bold; }
+    .form-row input[type="text"], .form-row input[type="date"] { border: 2px solid #333; border-radius: 2px; padding: 6px 10px; font-size: 14px; }
+    .input-sm { width: 100px; }
+    .input-lg { width: 340px; }
+    .spinner-group { display: flex; align-items: center; gap: 12px; }
+    .spinner-wrap { display: flex; align-items: center; gap: 6px; }
+    .spinner-wrap input[type="number"] { width: 70px; padding: 6px 8px; border: 2px solid #333; border-radius: 2px; font-size: 14px; }
+    .date-wrap { display: flex; align-items: center; gap: 10px; }
+    .date-wrap input[type="date"] { width: 160px; }
+    .form-actions { margin-top: 30px; margin-left: 160px; display: flex; gap: 16px; }
+    .btn-save { padding: 8px 32px; background: #1a72d9; color: #fff; border: none; font-size: 15px; cursor: pointer; border-radius: 2px; }
+    .btn-save:hover { background: #155bb5; }
+    .btn-cancel { padding: 8px 32px; background: #fff; color: #333; border: 2px solid #333; font-size: 15px; cursor: pointer; border-radius: 2px; }
+  </style>
+</head>
+<body>
+  <div id="topbar">
+    <a href="/" id="topbar-logo">
+      <img src="/images/logo.png" alt="Logo">
+    </a>
+    <div id="topbar-icons">
+      <div class="topbar-icon" title="Help">?</div>
+      <div class="topbar-icon" title="Chat">&#128172;</div>
+      <div class="topbar-icon" title="Messages">&#9993;</div>
+      <div class="topbar-icon" title="Profile">&#128100;</div>
+    </div>
+  </div>
+
+  <div id="admin-layout">
+    <nav id="sidebar">
+      <ul>
+        <li><a href="/travel">Travel</a></li>
+        <li><a href="/reservations">Reservations</a></li>
+        <li><a href="#">Users</a></li>
+        <li><a href="#">Settings</a></li>
+      </ul>
+    </nav>
+
+    <main id="admin-main">
+      <form action="/admin" method="POST">
+        <fieldset>
+          <legend>Group Name</legend>
+          <div class="form-row">
+            <label for="tripId">ID:</label>
+            <input type="text" id="tripId" name="tripId" class="input-sm">
+          </div>
+          <div class="form-row">
+            <label for="destination">Destination:</label>
+            <input type="text" id="destination" name="destination" class="input-lg">
+          </div>
+          <div class="form-row">
+            <label>Length of Stay:</label>
+            <div class="spinner-group">
+              <div class="spinner-wrap">
+                <input type="number" id="nights" name="nights" value="3" min="1">
+                <span>Nights</span>
+              </div>
+              <div class="spinner-wrap">
+                <input type="number" id="days" name="days" value="4" min="1">
+                <span>Days</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="startDate">Start Date:</label>
+            <div class="date-wrap">
+              <input type="date" id="startDate" name="startDate">
+              <span style="font-size:24px;cursor:pointer">&#128197;</span>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="resort">Resort:</label>
+            <input type="text" id="resort" name="resort" class="input-lg">
+          </div>
+          <div class="form-row">
+            <label for="perPerson">Per Person:</label>
+            <input type="text" id="perPerson" name="perPerson" class="input-sm" placeholder="$0.00">
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-save">Save</button>
+            <button type="button" class="btn-cancel" onclick="history.back()">Cancel</button>
+          </div>
+        </fieldset>
+      </form>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('nights').addEventListener('input', function() {
+      document.getElementById('days').value = parseInt(this.value) + 1;
+    });
+  </script>
+</body>
+</html>
