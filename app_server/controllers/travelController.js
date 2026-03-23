@@ -1,22 +1,13 @@
-// app/controllers/travelController.js
+var fs = require('fs');
 var tripsModel = require('../models/trips');
 
 // GET /travel
 exports.list = function(req, res) {
-  var category = req.query.category || 'beaches';
-  var allTrips  = tripsModel.getAllTrips();
-  var trips     = tripsModel.getTripsByCategory(category);
+  var trips = JSON.parse(fs.readFileSync('./data/trips.json', 'utf8'));
 
   res.render('travel', {
     title: 'Travel - Travlr Getaways',
-    trips:         trips,
-    category:      category,
-    beachCount:    allTrips.beaches.length,
-    cruiseCount:   allTrips.cruises.length,
-    mountainCount: allTrips.mountains.length,
-    isBeaches:     category === 'beaches',
-    isCruises:     category === 'cruises',
-    isMountains:   category === 'mountains'
+    trips: trips
   });
 };
 

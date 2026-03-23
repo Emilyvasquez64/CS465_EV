@@ -1,84 +1,47 @@
 <div id="contents">
   <div class="box">
     <div>
-      <div class="body">
-        <h1>Travel</h1>
-        <h2 style="font-size:18px;color:#5a4535;text-transform:none;margin-bottom:8px;">
-          My Trips &nbsp;&nbsp;
-          <a href="#" onclick="history.back();return false;" style="font-size:14px;color:#2c9688;">&lt; Back</a>
-        </h2>
+      <div class="body" style="padding: 20px 40px;">
+        <h1>TRAVEL</h1>
 
-        <style>
-          #travel-controls{display:flex;align-items:center;margin-bottom:0}
-          .travel-tabs{display:flex}
-          .travel-tab{padding:6px 14px;border:1px solid #aaa;border-bottom:none;background:#e8e8e8;cursor:pointer;font-size:13px;border-radius:4px 4px 0 0;margin-right:2px;color:#333;text-decoration:none;display:inline-block}
-          .travel-tab.active{background:#fff;font-weight:bold}
-          .travel-search-bar{margin-left:auto;display:flex;align-items:center;border:2px solid #333;padding:4px 8px;background:#fff;font-size:13px}
-          .travel-search-bar input{border:none;outline:none;font-size:13px;width:180px}
-          .btn-add-trip{margin-left:10px;padding:6px 16px;border:2px solid #333;background:#fff;font-size:13px;font-weight:bold;cursor:pointer;white-space:nowrap}
-          #travel-table{width:100%;border-collapse:collapse;font-size:14px}
-          #travel-table th{text-align:left;padding:8px 10px;border-top:2px solid #aaa;border-bottom:1px solid #aaa;font-weight:bold;color:#222;background:#fff}
-          #travel-table td{padding:10px;border-bottom:1px solid #ddd;color:#222;background:#fff}
-          #travel-table tr:first-child td{background:#b8d0e8}
-          #travel-table tr.empty td{background:#f0f0f0;height:36px}
-          #travel-table td.actions a{color:#1a5276;text-decoration:underline;margin-right:4px;font-size:13px}
-          #travel-table td.actions .del-btn{color:#fff;background:#1a5276;border-radius:50%;padding:0 5px;font-size:12px;text-decoration:none;font-weight:bold}
-          .travel-pagination{text-align:right;margin-top:10px;font-size:13px}
-          .travel-pagination a{color:#1a5276;text-decoration:none;margin:0 6px}
-        </style>
-
-        <div id="travel-controls">
-          <div class="travel-tabs">
-            <a href="/travel?category=beaches" class="travel-tab {{#if isBeaches}}active{{/if}}">Beaches ({{beachCount}})</a>
-            <a href="/travel?category=cruises" class="travel-tab {{#if isCruises}}active{{/if}}">Cruises ({{cruiseCount}})</a>
-            <a href="/travel?category=mountains" class="travel-tab {{#if isMountains}}active{{/if}}">Mountains ({{mountainCount}})</a>
+        {{#each trips}}
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; padding: 30px 0; border-bottom: 1px solid #ccc;">
+          
+          <!-- Left: text content -->
+          <div style="flex: 1; padding-right: 40px;">
+            <h2 style="color: #2e8b7a; text-transform: uppercase; margin-bottom: 20px;">{{this.name}}</h2>
+            <p style="line-height: 2;">{{this.description}}</p>
+            {{!-- <table style="margin-top: 15px; line-height: 1.8;">
+              <tr>
+                <td style="padding-right: 20px;"><strong>Trip ID:</strong></td>
+                <td>{{this.id}}</td>
+              </tr>
+              <tr>
+                <td><strong>Length:</strong></td>
+                <td>{{this.length}}</td>
+              </tr>
+              <tr>
+                <td><strong>Start Date:</strong></td>
+                <td>{{this.start}}</td>
+              </tr>
+              <tr>
+                <td><strong>Resort:</strong></td>
+                <td>{{this.resort}}</td>
+              </tr>
+              <tr>
+                <td><strong>Per Person:</strong></td>
+                <td>{{this.perPerson}}</td>
+              </tr>
+            </table> --}}
           </div>
-          <div class="travel-search-bar">
-            &#128269; <input type="text" placeholder="search travel" id="travel-search" oninput="filterTable()">
+
+          <!-- Right: image -->
+          <div style="flex-shrink: 0;">
+            <img src="/images/{{this.image}}" alt="{{this.name}}" style="width: 480px; height: 340px; object-fit: cover; display: block;">
           </div>
-          <button class="btn-add-trip">Add a Trip</button>
+
         </div>
-
-        <table id="travel-table">
-          <thead>
-            <tr>
-              <th>ID</th><th>Name</th><th>Length</th><th>Start</th><th>Resort</th><th>Per Person</th><th></th>
-            </tr>
-          </thead>
-          <tbody id="travel-tbody">
-            {{#each trips}}
-            <tr>
-              <td>{{this.id}}</td>
-              <td>{{this.name}}</td>
-              <td>{{this.length}}</td>
-              <td>{{this.start}}</td>
-              <td>{{this.resort}}</td>
-              <td>{{this.perPerson}}</td>
-              <td class="actions">
-                <a href="/travel/{{this.id}}">Edit</a>
-                <a href="#" class="del-btn">x</a>
-              </td>
-            </tr>
-            {{/each}}
-            <tr class="empty"><td colspan="7"></td></tr>
-            <tr class="empty"><td colspan="7"></td></tr>
-            <tr class="empty"><td colspan="7"></td></tr>
-          </tbody>
-        </table>
-
-        <div class="travel-pagination">
-          <a href="#">&#9664; previous</a>
-          <a href="#">next &#9654;</a>
-        </div>
-
-        <script>
-          function filterTable() {
-            var q = document.getElementById('travel-search').value.toLowerCase();
-            document.querySelectorAll('#travel-tbody tr:not(.empty)').forEach(function(row) {
-              row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
-            });
-          }
-        </script>
+        {{/each}}
 
       </div>
     </div>

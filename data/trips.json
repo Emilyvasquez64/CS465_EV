@@ -1,0 +1,22 @@
+[
+    {
+    
+      "name": "Cancun",
+      "description": "Cancun - Bask in the crystal-clear Caribbean waters and white sandy beaches of this iconic Mexican resort city.",
+       "image": "cancun.jpg"
+
+    },
+    {
+   
+      "name": "Barbados",
+      "description": "Barbados - Discover the jewel of the Caribbean with its pristine coral reefs and warm hospitality.",
+       "image": "barbados.jpg"
+   
+    },
+    {
+    
+      "name": "Panama City",
+      "description": "Panama City - Where the Pacific meets the Caribbean with stunning Gulf Coast scenery.",
+       "image": "panama.jpg"
+    }
+  ]
