@@ -50,17 +50,19 @@ app.use('/admin',        adminRouter);
 app.use('/reservations', reservationsRouter);
 app.use('/checkout',     checkoutRouter);
 
-// ─── 404 Handler ─────────────────────────────────────────────────────────────
-app.use(function(req, res, next) {
-  next(createError(404));
-});
-
 // ─── API Routes ──────────────────────────────────────────────────────────────
-var Trip = require('./app_server/models/travlr');
+var mongoose = require('mongoose');
+var Trip = mongoose.models.trips || mongoose.model('trips');
+
 app.get('/api/trips', function(req, res) {
   Trip.find({})
     .then(trips => res.json(trips))
     .catch(err => res.status(500).json({ error: err }));
+});
+
+// ─── 404 Handler ─────────────────────────────────────────────────────────────
+app.use(function(req, res, next) {
+  next(createError(404));
 });
 
 // ─── Error Handler ───────────────────────────────────────────────────────────
@@ -72,4 +74,3 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-
