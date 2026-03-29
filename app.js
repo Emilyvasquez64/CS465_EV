@@ -55,6 +55,14 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
+// ─── API Routes ──────────────────────────────────────────────────────────────
+var Trip = require('./app_server/models/travlr');
+app.get('/api/trips', function(req, res) {
+  Trip.find({})
+    .then(trips => res.json(trips))
+    .catch(err => res.status(500).json({ error: err }));
+});
+
 // ─── Error Handler ───────────────────────────────────────────────────────────
 app.use(function(err, req, res, next) {
   res.locals.message = err.message;
@@ -64,3 +72,4 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
