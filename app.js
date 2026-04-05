@@ -5,8 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var hbs = require('hbs');
 var __fs__  = require('fs');
+var apiRouter = require('./app_api/routes/index');
 
-require('./app_server/models/db');
+require('./app_api/models/db');
 
 var indexRouter        = require('./app_server/routes/index');
 var usersRouter        = require('./app_server/routes/users');
@@ -49,16 +50,7 @@ app.use('/signup',       signupRouter);
 app.use('/admin',        adminRouter);
 app.use('/reservations', reservationsRouter);
 app.use('/checkout',     checkoutRouter);
-
-// ─── API Routes ──────────────────────────────────────────────────────────────
-var mongoose = require('mongoose');
-var Trip = mongoose.models.trips || mongoose.model('trips');
-
-app.get('/api/trips', function(req, res) {
-  Trip.find({})
-    .then(trips => res.json(trips))
-    .catch(err => res.status(500).json({ error: err }));
-});
+app.use('/api', apiRouter);
 
 // ─── 404 Handler ─────────────────────────────────────────────────────────────
 app.use(function(req, res, next) {
