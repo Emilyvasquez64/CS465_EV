@@ -1,0 +1,35 @@
+export const trips = [
+    {
+      "_id": "",
+      "code": "CANCUN01",
+      "name": "Cancun",
+      "length": "4 nights / 5 days",
+      "start": "2021-02-14",
+      "resort": "Emerald Bay, 3-stars",
+      "perPerson": "799.00",
+      "image": "cancun.jpg",
+      "description": "Bask in the crystal-clear Caribbean waters and white sandy beaches of this iconic Mexican resort city."
+    },
+    {
+      "_id": "",
+      "code": "BARBADOS01",
+      "name": "Barbados",
+      "length": "5 nights / 6 days",
+      "start": "2021-02-28",
+      "resort": "Castaway Cove, 4-stars",
+      "perPerson": "1299.00",
+      "image": "barbados.jpg",
+      "description": "Discover the jewel of the Caribbean with its pristine coral reefs and warm hospitality."
+    },
+    {
+      "_id": "",
+      "code": "PANAMA01",
+      "name": "Panama City",
+      "length": "4 nights / 5 days",
+      "start": "2021-03-21",
+      "resort": "Sunseeker Surf, 4-stars",
+      "perPerson": "1199.00",
+      "image": "panama.jpg",
+      "description": "Where the Pacific meets the Caribbean with stunning Gulf Coast scenery."
+    }
+  ];

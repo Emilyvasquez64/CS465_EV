@@ -1,20 +1,7 @@
-// app_api/controllers/trips.js
 const mongoose = require('mongoose');
+const Trip = require('../models/travlr');
 
-const tripSchema = new mongoose.Schema({
-  code:        { type: String, required: true, index: true },
-  name:        { type: String, required: true, index: true },
-  length:      { type: String, required: true },
-  start:       { type: Date,   required: true },
-  resort:      { type: String, required: true },
-  perPerson:   { type: String, required: true },
-  image:       { type: String, required: true },
-  description: { type: String, required: true }
-});
-
-const Trip = mongoose.models.trips || mongoose.model('trips', tripSchema);
-
-// GET /api/trips — return all trips
+// GET /api/trips
 const tripsList = async (req, res) => {
   try {
     const trips = await Trip.find({});
@@ -30,7 +17,7 @@ const tripsList = async (req, res) => {
   }
 };
 
-// GET /api/trips/:tripCode — return a single trip by code
+// GET /api/trips/:tripCode
 const tripsFindCode = async (req, res) => {
   try {
     const trip = await Trip.findOne({ code: req.params.tripCode });
@@ -43,4 +30,62 @@ const tripsFindCode = async (req, res) => {
   }
 };
 
-module.exports = { tripsList, tripsFindCode };
+// POST /api/trips
+const tripsAddTrip = async (req, res) => {
+  try {
+    const trip = await Trip.create({
+      code: req.body.code,
+      name: req.body.name,
+      length: req.body.length,
+      start: req.body.start,
+      resort: req.body.resort,
+      perPerson: req.body.perPerson,
+      image: req.body.image,
+      description: req.body.description
+    });
+    return res.status(201).json(trip);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};
+
+// PUT /api/trips/:tripCode
+const tripsUpdateTrip = async (req, res) => {
+  try {
+    const q = await Trip.findOneAndUpdate(
+      { code: req.params.tripCode },
+      {
+        code: req.body.code,
+        name: req.body.name,
+        length: req.body.length,
+        start: req.body.start,
+        resort: req.body.resort,
+        perPerson: req.body.perPerson,
+        image: req.body.image,
+        description: req.body.description
+      },
+      { new: true }
+    );
+    if (!q) {
+      return res.status(404).json({ message: 'Trip not found' });
+    }
+    return res.status(201).json(q);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};
+
+// DELETE /api/trips/:tripCode
+const tripsDeleteTrip = async (req, res) => {
+  try {
+    const q = await Trip.findOneAndDelete({ code: req.params.tripCode });
+    if (!q) {
+      return res.status(404).json({ message: 'Trip not found' });
+    }
+    return res.status(204).json(q);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};
+
+module.exports = { tripsList, tripsFindCode, tripsAddTrip, tripsUpdateTrip, tripsDeleteTrip };

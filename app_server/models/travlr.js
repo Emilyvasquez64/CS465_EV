@@ -1,4 +1,3 @@
-// app_api/models/travlr.js
 const mongoose = require('mongoose');
 
 const tripSchema = new mongoose.Schema({
@@ -12,4 +11,5 @@ const tripSchema = new mongoose.Schema({
   description: { type: String, required: true }
 });
 
-module.exports = mongoose.models.trips || mongoose.model('trips', tripSchema);
+const Trip = mongoose.model('trips', tripSchema);
+module.exports = Trip;
